@@ -27,30 +27,6 @@ type BanInfo struct { //ban相关信息类型
 	toBanDate string
 }
 
-func aPI_get_I(i, r, q string) []byte { //发起API请求
-	client := &http.Client{}
-
-	req, err := http.NewRequest(i, "https://api.moyugame.com/hqmc_q/"+r, strings.NewReader(q))
-	if err != nil {
-		// handle error
-	}
-
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-
-	resp, err := client.Do(req)
-	if err != nil {
-		// handle error
-	}
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		// handle error
-	}
-
-	//fmt.Println("body",string(body))
-	defer resp.Body.Close()
-	return body
-}
-
 func QueryserverIP(ip string) (SI ServerInfo) { //查询服务器信息
 	body := aPI_get_I("GET", "request", "serverIP="+ip)
 	sss, err := jsonparser.GetInt(body, "code")
@@ -95,4 +71,28 @@ func QueryUserIsBan(id int, username string) (SI BanInfo) { //查询用户是否
 	SI.BanDate, err = jsonparser.GetString(body, "data", "BanDate")
 	SI.toBanDate, err = jsonparser.GetString(body, "data", "toBanDate")
 	return SI
+}
+
+func aPI_get_I(i, r, q string) []byte { //发起API请求
+	client := &http.Client{}
+
+	req, err := http.NewRequest(i, "https://api.moyugame.com/hqmc_q/"+r, strings.NewReader(q))
+	if err != nil {
+		// handle error
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		// handle error
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		// handle error
+	}
+
+	//fmt.Println("body",string(body))
+	defer resp.Body.Close()
+	return body
 }
