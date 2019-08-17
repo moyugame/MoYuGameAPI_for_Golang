@@ -1,0 +1,2 @@
+# MoYuGameAPI_for_Golang
+golang的MoYuGameAPI接口库
