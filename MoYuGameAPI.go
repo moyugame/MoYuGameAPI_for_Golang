@@ -11,7 +11,7 @@ import (
 
 type ServerInfo struct { //服务器相关信息类型
 	ID       int
-	status   int
+	status   int //服务器状态
 	IP       string
 	port     int
 	version  string
